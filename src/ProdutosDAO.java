@@ -19,6 +19,22 @@ public class ProdutosDAO {
         }
     }
 
+    public void venderProduto(int id) {
+        String sql = "UPDATE produtos SET status = 'Vendido' WHERE id = ?";
+
+        try (Connection conn = new conectaDAO().connectDB();
+             PreparedStatement prep = conn.prepareStatement(sql)) {
+            prep.setInt(1, id);
+            if (prep.executeUpdate() == 0) {
+                throw new IllegalArgumentException("Produto não encontrado.");
+            }
+        } catch (IllegalArgumentException erro) {
+            throw erro;
+        } catch (Exception erro) {
+            throw new IllegalStateException("Não foi possível vender o produto.", erro);
+        }
+    }
+
     public ArrayList<ProdutosDTO> listarProdutos() {
         ArrayList<ProdutosDTO> listagem = new ArrayList<>();
         String sql = "SELECT id, nome, valor, status FROM produtos ORDER BY id";
