@@ -18,6 +18,7 @@ public class listagemVIEW extends javax.swing.JFrame {
      */
     public listagemVIEW() {
         initComponents();
+        setLocationRelativeTo(null);
         listarProdutos();
     }
 
@@ -44,12 +45,7 @@ public class listagemVIEW extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         listaProdutos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
+            new Object [][] {},
             new String [] {
                 "ID", "Nome", "Valor", "Status"
             }
@@ -219,6 +215,9 @@ public class listagemVIEW extends javax.swing.JFrame {
                 });
             }
         } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this, e.getMessage(), "Erro",
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     
     }
