@@ -1,8 +1,10 @@
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
+import java.util.Properties;
 
 
 
@@ -18,16 +20,18 @@ import javax.swing.JOptionPane;
 public class conectaDAO {
     
     public Connection connectDB(){
-        Connection conn = null;
-        
-        try {
-        
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/uc11?user=root&password=");
-            
-        } catch (SQLException erro){
-            JOptionPane.showMessageDialog(null, "Erro ConectaDAO" + erro.getMessage());
+        Properties config = new Properties();
+
+        try (FileInputStream arquivo = new FileInputStream("db.properties")) {
+            config.load(arquivo);
+            return DriverManager.getConnection(
+                    config.getProperty("db.url"),
+                    config.getProperty("db.user"),
+                    config.getProperty("db.password"));
+        } catch (IOException | SQLException erro) {
+            throw new IllegalStateException(
+                    "Não foi possível conectar ao banco. Configure o arquivo db.properties.", erro);
         }
-        return conn;
     }
     
 }
