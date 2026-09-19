@@ -21,7 +21,7 @@ O projeto usa o driver MySQL JDBC, compatível com o servidor MariaDB. As creden
 Exemplo de configuração:
 
 ```properties
-db.url=jdbc:mysql://127.0.0.1:3306/uc11
+db.url=jdbc:mysql://127.0.0.1:3306/uc11?useSSL=false
 db.user=senac
 db.password=sua_senha
 ```
